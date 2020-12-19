@@ -23,5 +23,5 @@ style.innerHTML = `
   }
 `;
 
-const chart = new Chart(container, 10);
+const chart = new Chart(container);
 chart.draw();

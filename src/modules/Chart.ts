@@ -1,15 +1,15 @@
 interface IChart {
-	tabcell: number;
 	container: HTMLDivElement;
 	draw: () => void;
 }
 
 class Chart implements IChart {
-	public tabcell: number;
 	public container: HTMLDivElement;
 	private xGrid: number = 10;
-	constructor(container: HTMLDivElement, tabcell: number) {
-		this.tabcell = tabcell;
+	private yGrid: number = 10;
+	private tabcellSize: number = 10;
+
+	constructor(container: HTMLDivElement) {
 		this.container = container;
 	}
 
@@ -20,21 +20,21 @@ class Chart implements IChart {
 		this.container.appendChild(canvas);
 		const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 		ctx.beginPath();
-		while (this.tabcell < canvasWidth) {
-			ctx.moveTo(canvasWidth - this.tabcell, 0);
-			ctx.lineTo(canvasWidth - this.tabcell, canvasHeight);
-			this.tabcell += 10;
+
+		while (this.yGrid < canvasWidth) {
+			ctx.moveTo(canvasWidth - this.yGrid, 0);
+			ctx.lineTo(canvasWidth - this.yGrid, canvasHeight);
+			this.yGrid += this.tabcellSize;
 		}
 
 		while (this.xGrid < canvasHeight) {
+			console.log(this.xGrid);
 			ctx.moveTo(0, canvasHeight - this.xGrid);
 			ctx.lineTo(canvasWidth, canvasHeight - this.xGrid);
-			this.xGrid += 10;
-			console.log(this.xGrid);
+			this.xGrid += this.tabcellSize;
 		}
 		ctx.strokeStyle = 'grey';
 		ctx.stroke();
-		console.log('I am drawing this');
 	}
 }
 
