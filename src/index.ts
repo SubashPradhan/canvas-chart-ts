@@ -5,6 +5,7 @@ const style: HTMLStyleElement = document.createElement('style');
 head.appendChild(style);
 
 const currentScreenHeight: number = document.documentElement.clientHeight;
+const currentScreenWidth: number = document.documentElement.clientWidth;
 style.innerHTML = `
   *{
     margin: 0;
@@ -13,9 +14,11 @@ style.innerHTML = `
 
   .container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: ${currentScreenHeight}px;
+    width: ${currentScreenWidth}px;
   }
 
   canvas{
@@ -23,5 +26,5 @@ style.innerHTML = `
   }
 `;
 
-const chart = new Chart(container);
+const chart: Chart = new Chart(container);
 chart.drawGrids();

@@ -1,10 +1,9 @@
 interface IChart {
-	container: HTMLDivElement;
 	drawGrids: () => void;
 }
 
 class Chart implements IChart {
-	public container: HTMLDivElement;
+	private container: HTMLDivElement;
 	private xGrid: number = 10;
 	private yGrid: number = 10;
 	private tabcellSize: number = 10;
@@ -17,8 +16,8 @@ class Chart implements IChart {
 		const canvas: HTMLCanvasElement = document.createElement('canvas');
 		const canvasHeight: number = (canvas.height = 500);
 		const canvasWidth: number = (canvas.width = 700);
-		this.container.appendChild(canvas);
 		const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+		this.container.appendChild(canvas);
 		ctx.beginPath();
 
 		while (this.yGrid < canvasWidth) {
