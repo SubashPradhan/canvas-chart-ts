@@ -1,6 +1,6 @@
 interface IChart {
 	container: HTMLDivElement;
-	draw: () => void;
+	drawGrids: () => void;
 }
 
 class Chart implements IChart {
@@ -13,7 +13,7 @@ class Chart implements IChart {
 		this.container = container;
 	}
 
-	public draw() {
+	public drawGrids() {
 		const canvas: HTMLCanvasElement = document.createElement('canvas');
 		const canvasHeight: number = (canvas.height = 500);
 		const canvasWidth: number = (canvas.width = 700);
@@ -28,7 +28,6 @@ class Chart implements IChart {
 		}
 
 		while (this.xGrid < canvasHeight) {
-			console.log(this.xGrid);
 			ctx.moveTo(0, canvasHeight - this.xGrid);
 			ctx.lineTo(canvasWidth, canvasHeight - this.xGrid);
 			this.xGrid += this.tabcellSize;

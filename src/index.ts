@@ -24,4 +24,4 @@ style.innerHTML = `
 `;
 
 const chart = new Chart(container);
-chart.draw();
+chart.drawGrids();
