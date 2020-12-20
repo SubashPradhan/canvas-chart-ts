@@ -1,5 +1,5 @@
 import Chart from './modules/Chart';
-import CandleStick from './Candlestick';
+import CandleStick from './modules/Candlestick';
 
 const container: HTMLDivElement = document.querySelector('.container');
 const head: HTMLHeadElement = document.head;
@@ -29,10 +29,6 @@ style.innerHTML = `
 `;
 
 function init() {
-	// const chart: Chart = new Chart(container);
-	// chart.drawGrids();
-	// chart.drawTimeLine();
-	// chart.drawPriceLine();
 	const candleStick: CandleStick = new CandleStick(container);
 	candleStick.drawGrids();
 	candleStick.drawTimeLine();
