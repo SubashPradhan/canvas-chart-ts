@@ -29,3 +29,4 @@ style.innerHTML = `
 const chart: Chart = new Chart(container);
 chart.drawGrids();
 chart.drawTimeLine();
+chart.drawPriceLine();
