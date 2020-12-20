@@ -3,23 +3,28 @@ import { countBlocks } from './helper/countBlocks';
 
 interface IChart {
 	drawGrids: () => void;
+	drawTimeLine: () => void;
 }
 class Chart implements IChart {
-	private container: HTMLDivElement;
+	public container: HTMLDivElement;
 	private xGrid: number = 10;
 	private yGrid: number = 10;
 	private tabcellSize: number = 10;
 	private canvas: HTMLCanvasElement = document.createElement('canvas');
-	private canvasHeight: number = (this.canvas.height =
+	public canvasHeight: number = (this.canvas.height =
 		document.documentElement.clientHeight - 100);
-	private canvasWidth: number = (this.canvas.width =
+	public canvasWidth: number = (this.canvas.width =
 		document.documentElement.clientWidth - 100);
-	private ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
+	public ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
 
 	public constructor(container: HTMLDivElement) {
 		this.container = container;
 		this.container.appendChild(this.canvas);
 		this.ctx.beginPath();
+	}
+
+	public getCtx() {
+		return this.ctx;
 	}
 
 	public drawGrids() {
@@ -66,33 +71,32 @@ class Chart implements IChart {
 		this.ctx.stroke();
 	}
 
-	drawPriceLine() {
+	/// REFACTOR THIS CODE LATER
+	public listOfLowestPrice: (string | number)[] = givenData.map(
+		prices => prices[3],
+	);
+	public currentLowestPoint = Math.min(...(this.listOfLowestPrice as number[]));
+	public currentPoint: number =
+		this.currentLowestPoint % 5 === 0
+			? Math.trunc(this.currentLowestPoint)
+			: Math.trunc(this.currentLowestPoint + (this.currentLowestPoint % 5));
+
+	public drawPriceLine() {
 		const xBaseLine = this.ctx.moveTo(this.canvasWidth - countBlocks(5), 0);
 		this.ctx.lineTo(this.canvasWidth - countBlocks(5), this.canvasHeight);
 		let startingPointForY = this.canvasHeight;
 		let startingPointForX = this.canvasWidth - countBlocks(5);
-		const listOfLowestPrice: (string | number)[] = givenData.map(
-			prices => prices[3],
-		);
 		const listOfHighestPrice: (string | number)[] = givenData.map(
 			prices => prices[2],
 		);
-		let currentLowestPoint = Math.min(...(listOfLowestPrice as number[]));
-		let currentPoint: number =
-			currentLowestPoint % 5 === 0
-				? Math.trunc(currentLowestPoint)
-				: Math.trunc(currentLowestPoint + (currentLowestPoint % 5));
 
+		let Xline: number = this.currentPoint; //Change this as well
 		while (startingPointForY >= 0) {
 			this.ctx.moveTo(startingPointForX, startingPointForY);
 			this.ctx.lineTo(startingPointForX - 20, startingPointForY);
-			this.ctx.fillText(
-				`${currentPoint}`,
-				startingPointForX + 10,
-				startingPointForY,
-			);
+			this.ctx.fillText(`${Xline}`, startingPointForX + 10, startingPointForY);
 			startingPointForY -= countBlocks(5);
-			currentPoint += 5;
+			Xline += 5;
 		}
 		this.ctx.stroke();
 	}

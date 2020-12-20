@@ -1,4 +1,6 @@
 import Chart from './modules/Chart';
+import CandleStick from './Candlestick';
+
 const container: HTMLDivElement = document.querySelector('.container');
 const head: HTMLHeadElement = document.head;
 const style: HTMLStyleElement = document.createElement('style');
@@ -26,7 +28,16 @@ style.innerHTML = `
   }
 `;
 
-const chart: Chart = new Chart(container);
-chart.drawGrids();
-chart.drawTimeLine();
-chart.drawPriceLine();
+function init() {
+	// const chart: Chart = new Chart(container);
+	// chart.drawGrids();
+	// chart.drawTimeLine();
+	// chart.drawPriceLine();
+	const candleStick: CandleStick = new CandleStick(container);
+	candleStick.drawGrids();
+	candleStick.drawTimeLine();
+	candleStick.drawPriceLine();
+	candleStick.drawCandleStick();
+}
+
+init();
