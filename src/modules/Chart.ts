@@ -39,8 +39,8 @@ class Chart implements IChart {
 			this.ctx.lineTo(this.canvasWidth, this.canvasHeight - this.xGrid);
 			this.xGrid += this.tabcellSize;
 		}
-		this.ctx.strokeStyle = 'grey';
-		this.ctx.stroke();
+		// this.ctx.strokeStyle = 'grey';
+		// this.ctx.stroke();
 	}
 
 	public drawTimeLine() {
@@ -75,16 +75,19 @@ class Chart implements IChart {
 	public listOfLowestPrice: (string | number)[] = givenData.map(
 		prices => prices[3],
 	);
-	public currentLowestPoint = Math.min(...(this.listOfLowestPrice as number[]));
+	public currentLowestPoint: number = Math.trunc(
+		Math.min(...(this.listOfLowestPrice as number[])),
+	);
 	public currentPoint: number =
 		this.currentLowestPoint % 5 === 0
-			? Math.trunc(this.currentLowestPoint)
-			: Math.trunc(this.currentLowestPoint + (this.currentLowestPoint % 5));
+			? this.currentLowestPoint
+			: this.currentLowestPoint + (this.currentLowestPoint % 5) - 1; //This needs to be checked as well
 
 	public drawPriceLine() {
+		console.log(this.currentLowestPoint);
 		const xBaseLine = this.ctx.moveTo(this.canvasWidth - countBlocks(5), 0);
 		this.ctx.lineTo(this.canvasWidth - countBlocks(5), this.canvasHeight);
-		let startingPointForY = this.canvasHeight;
+		let startingPointForY = this.canvasHeight - countBlocks(5);
 		let startingPointForX = this.canvasWidth - countBlocks(5);
 		const listOfHighestPrice: (string | number)[] = givenData.map(
 			prices => prices[2],

@@ -13,8 +13,9 @@ style.innerHTML = `
     margin: 0;
     padding: 0;
   }
-
+  
   .container{
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
