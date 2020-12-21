@@ -9,22 +9,19 @@ class Chart implements IChart {
 	public container: HTMLDivElement;
 	private xGrid: number = 10;
 	private yGrid: number = 10;
+	private margin: number = 100;
 	private tabcellSize: number = 10;
 	private canvas: HTMLCanvasElement = document.createElement('canvas');
 	public canvasHeight: number = (this.canvas.height =
-		document.documentElement.clientHeight - 100);
+		document.documentElement.clientHeight - this.margin);
 	public canvasWidth: number = (this.canvas.width =
-		document.documentElement.clientWidth - 100);
+		document.documentElement.clientWidth - this.margin);
 	public ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
 
 	public constructor(container: HTMLDivElement) {
 		this.container = container;
 		this.container.appendChild(this.canvas);
 		this.ctx.beginPath();
-	}
-
-	public getCtx() {
-		return this.ctx;
 	}
 
 	public drawGrids() {
@@ -51,24 +48,24 @@ class Chart implements IChart {
 		this.ctx.moveTo(0, yBaseLine);
 		this.ctx.lineTo(this.canvasWidth, yBaseLine);
 		// this.ctx.stroke();
-		const data: (string | number)[][] = givenData;
-		const time = data.map(prices => {
-			//Change given timestamps to UTC time format
-			// let currentTime: string = new Date((prices[0] as number) / 1000)
-			// 	.toLocaleString()
-			// 	.replace(/^(\w+|\s)|(\w+)$/g, '');
-			// let openingPrice: string | number = prices[1];
-			// let highestPrice: string | number = prices[2];
-			// let lowestPrice: string | number = prices[3];
-			let closingPrice: string | number = prices[4];
-			this.ctx.moveTo(startingPoint, yBaseLine);
-			this.ctx.lineTo(startingPoint, yBaseLine + 10);
-			// this.ctx.fillText(`${currentTime}`, startingPoint, yBaseLine + 15);
-			// this.ctx.textAlign = 'center';
-			startingPoint -= differenceBetweenPoints;
-		});
-		this.ctx.strokeStyle = 'red';
-		this.ctx.stroke();
+		// const data: (string | number)[][] = givenData;
+		// const time = data.map(prices => {
+		//Change given timestamps to UTC time format
+		// let currentTime: string = new Date((prices[0] as number) / 1000)
+		// 	.toLocaleString()
+		// 	.replace(/^(\w+|\s)|(\w+)$/g, '');
+		// let openingPrice: string | number = prices[1];
+		// let highestPrice: string | number = prices[2];
+		// let lowestPrice: string | number = prices[3];
+		// let closingPrice: string | number = prices[4];
+		// this.ctx.moveTo(startingPoint, yBaseLine);
+		// this.ctx.lineTo(startingPoint, yBaseLine + 10);
+		// this.ctx.fillText(`${currentTime}`, startingPoint, yBaseLine + 15);
+		// this.ctx.textAlign = 'center';
+		// startingPoint -= differenceBetweenPoints;
+		// });
+		// this.ctx.strokeStyle = 'red';
+		// this.ctx.stroke();
 	}
 
 	/// REFACTOR THIS CODE LATER

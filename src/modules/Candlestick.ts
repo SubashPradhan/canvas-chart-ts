@@ -1,29 +1,15 @@
 import { givenData } from './helper/data';
 import Chart from './Chart';
 import { countBlocks } from './helper/countBlocks';
-import { textChangeRangeIsUnchanged } from '../../node_modules/typescript/lib/typescript';
-const container: HTMLDivElement = document.createElement('div');
-interface ICandleStick {
-	currentTime: Date;
-	highestPrice: number;
-	lowestPrice: number;
-	openingPrice: number;
-	closingPrice: number;
-}
 
 class CandleStick extends Chart {
-	private currentTime: Date;
-	// private highestPrice: number = 23000;
-	private lowestPrice: number = 22980;
-	private openingPrice: number = 22985;
-	private closingPrice: number = 22995;
 	public constructor(container: HTMLDivElement) {
 		super(container);
 		this.container = container;
 	}
 
 	public drawCandleStick() {
-		let lowestPricePoint = this.currentPoint;
+		let lowestPricePoint: number = this.currentPoint;
 		let startingPointX: number = this.canvasWidth - countBlocks(10);
 		let startingPointY: number = this.canvasHeight - countBlocks(5); // This is 5 blocks above the starting point of y
 		givenData.map(prices => {
@@ -34,7 +20,7 @@ class CandleStick extends Chart {
 			this.ctx.moveTo(
 				startingPointX,
 				startingPointY -
-					countBlocks((highestPrice as number) - lowestPricePoint) / 2, // Divide by two so each bock holds 2 prices
+					countBlocks((highestPrice as number) - lowestPricePoint) / 2, // Divide by two so each bock holds 2 prices so we can calculate the distance in blocks
 			);
 			this.ctx.lineTo(
 				startingPointX,
