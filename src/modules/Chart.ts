@@ -39,8 +39,8 @@ class Chart implements IChart {
 			this.ctx.lineTo(this.canvasWidth, this.canvasHeight - this.xGrid);
 			this.xGrid += this.tabcellSize;
 		}
-		// this.ctx.strokeStyle = 'grey';
-		// this.ctx.stroke();
+		this.ctx.strokeStyle = 'grey';
+		this.ctx.stroke();
 	}
 
 	public drawTimeLine() {
@@ -81,10 +81,9 @@ class Chart implements IChart {
 	public currentPoint: number =
 		this.currentLowestPoint % 5 === 0
 			? this.currentLowestPoint
-			: this.currentLowestPoint + (this.currentLowestPoint % 5) - 1; //This needs to be checked as well
+			: this.currentLowestPoint - (this.currentLowestPoint % 5); //This needs to be checked as well
 
 	public drawPriceLine() {
-		console.log(this.currentLowestPoint);
 		const xBaseLine = this.ctx.moveTo(this.canvasWidth - countBlocks(5), 0);
 		this.ctx.lineTo(this.canvasWidth - countBlocks(5), this.canvasHeight);
 		let startingPointForY = this.canvasHeight - countBlocks(5);
@@ -93,13 +92,13 @@ class Chart implements IChart {
 			prices => prices[2],
 		);
 
-		let Xline: number = this.currentPoint; //Change this as well
+		let Yline: number = this.currentPoint; //Change this as well
 		while (startingPointForY >= 0) {
 			this.ctx.moveTo(startingPointForX, startingPointForY);
-			this.ctx.lineTo(startingPointForX - 20, startingPointForY);
-			this.ctx.fillText(`${Xline}`, startingPointForX + 10, startingPointForY);
+			this.ctx.lineTo(startingPointForX + 20, startingPointForY);
+			this.ctx.fillText(`${Yline}`, startingPointForX + 5, startingPointForY);
 			startingPointForY -= countBlocks(5);
-			Xline += 5;
+			Yline += 10;
 		}
 		this.ctx.stroke();
 	}

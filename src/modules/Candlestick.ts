@@ -1,6 +1,7 @@
 import { givenData } from './helper/data';
 import Chart from './Chart';
 import { countBlocks } from './helper/countBlocks';
+import { textChangeRangeIsUnchanged } from '../../node_modules/typescript/lib/typescript';
 const container: HTMLDivElement = document.createElement('div');
 interface ICandleStick {
 	currentTime: Date;
@@ -24,30 +25,31 @@ class CandleStick extends Chart {
 	public drawCandleStick() {
 		let lowestPricePoint = this.currentPoint;
 		let startingPointX: number = this.canvasWidth - countBlocks(10);
+		let startingPointY: number = this.canvasHeight - countBlocks(5); // This is 5 blocks above the starting point of y
 		givenData.map(prices => {
-			// console.log('HERE', this.lowestPrice - lowestPricePoint);
 			let openingPrice: string | number = prices[1];
 			let highestPrice: string | number = prices[2];
 			let lowestPrice: string | number = prices[3];
 			let closingPrice: string | number = prices[4];
-			let startingPointY: number =
-				this.canvasHeight -
-				countBlocks((highestPrice as number) - lowestPricePoint);
-			this.ctx.moveTo(startingPointX, startingPointY);
+			this.ctx.moveTo(
+				startingPointX,
+				startingPointY -
+					countBlocks((highestPrice as number) - lowestPricePoint) / 2, // Divide by two so each bock holds 2 prices
+			);
 			this.ctx.lineTo(
 				startingPointX,
-				this.canvasHeight -
-					countBlocks((lowestPrice as number) - lowestPricePoint),
+				startingPointY -
+					countBlocks((lowestPrice as number) - lowestPricePoint) / 2,
 			);
 			this.ctx.strokeStyle = 'black';
 			this.ctx.stroke();
 			this.ctx.fillStyle = closingPrice < openingPrice ? 'green' : 'red';
 			this.ctx.fillRect(
 				startingPointX - 10,
-				this.canvasHeight -
-					countBlocks((openingPrice as number) - lowestPricePoint),
+				startingPointY -
+					countBlocks((openingPrice as number) - lowestPricePoint) / 2,
 				20,
-				countBlocks((openingPrice as number) - Number(closingPrice)),
+				countBlocks((openingPrice as number) - Number(closingPrice)) / 2,
 			);
 			startingPointX -= countBlocks(2.5);
 		});
