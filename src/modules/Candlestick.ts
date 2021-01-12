@@ -9,7 +9,7 @@ class CandleStick extends Chart {
 	}
 
 	public drawCandleStick() {
-		let lowestPricePoint: number = this.currentPoint;
+		let lowestPricePoint: number = this.currentStartingLowPoint;
 		let startingPointX: number = this.canvasWidth - countBlocks(10);
 		let startingPointY: number = this.canvasHeight - countBlocks(5); // This is 5 blocks above the starting point of y
 		givenData.map(prices => {
@@ -20,12 +20,12 @@ class CandleStick extends Chart {
 			this.ctx.moveTo(
 				startingPointX,
 				startingPointY -
-					countBlocks((highestPrice as number) - lowestPricePoint) / 2, // Divide by two so each bock holds 2 prices so we can calculate the distance in blocks
+					countBlocks((highestPrice as number) - lowestPricePoint) / 18, // Divide by two so each bock holds 18 prices so we can calculate the distance in blocks
 			);
 			this.ctx.lineTo(
 				startingPointX,
 				startingPointY -
-					countBlocks((lowestPrice as number) - lowestPricePoint) / 2,
+					countBlocks((lowestPrice as number) - lowestPricePoint) / 18, //per 18
 			);
 			this.ctx.strokeStyle = 'black';
 			this.ctx.stroke();
@@ -33,9 +33,9 @@ class CandleStick extends Chart {
 			this.ctx.fillRect(
 				startingPointX - 10,
 				startingPointY -
-					countBlocks((openingPrice as number) - lowestPricePoint) / 2,
+					countBlocks((openingPrice as number) - lowestPricePoint) / 18, // per 18
 				20,
-				countBlocks((openingPrice as number) - Number(closingPrice)) / 2,
+				countBlocks((openingPrice as number) - Number(closingPrice)) / 18, // per 18
 			);
 			startingPointX -= countBlocks(2.5);
 		});

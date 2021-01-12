@@ -42,27 +42,27 @@ class Chart implements IChart {
 
 	public drawTimeLine() {
 		let yBaseLine: number = this.canvasHeight - countBlocks(5);
-		let startingPoint: number = this.canvasWidth - countBlocks(5);
-		let differenceBetweenPoints: number = 50;
+		// let startingPoint: number = this.canvasWidth - countBlocks(5);
+		// let differenceBetweenPoints: number = 50;
 		this.ctx.beginPath();
 		this.ctx.moveTo(0, yBaseLine);
 		this.ctx.lineTo(this.canvasWidth, yBaseLine);
 		// this.ctx.stroke();
 		// const data: (string | number)[][] = givenData;
-		// const time = data.map(prices => {
-		//Change given timestamps to UTC time format
+		// const time = givenData.map(prices => {
+		// Change given timestamps to UTC time format
 		// let currentTime: string = new Date((prices[0] as number) / 1000)
-		// 	.toLocaleString()
-		// 	.replace(/^(\w+|\s)|(\w+)$/g, '');
-		// let openingPrice: string | number = prices[1];
-		// let highestPrice: string | number = prices[2];
-		// let lowestPrice: string | number = prices[3];
-		// let closingPrice: string | number = prices[4];
-		// this.ctx.moveTo(startingPoint, yBaseLine);
-		// this.ctx.lineTo(startingPoint, yBaseLine + 10);
-		// this.ctx.fillText(`${currentTime}`, startingPoint, yBaseLine + 15);
-		// this.ctx.textAlign = 'center';
-		// startingPoint -= differenceBetweenPoints;
+		// .toLocaleString()
+		// 		// .replace(/^(\w+|\s)|(\w+)$/g, '');
+		// 	let openingPrice: string | number = prices[1];
+		// 	let highestPrice: string | number = prices[2];
+		// 	let lowestPrice: string | number = prices[3];
+		// 	let closingPrice: string | number = prices[4];
+		// 	this.ctx.moveTo(startingPoint, yBaseLine);
+		// 	this.ctx.lineTo(startingPoint, yBaseLine + 10);
+		// 	this.ctx.fillText(`${currentTime}`, startingPoint, yBaseLine + 15);
+		// 	this.ctx.textAlign = 'center';
+		// 	startingPoint -= differenceBetweenPoints;
 		// });
 		// this.ctx.strokeStyle = 'red';
 		// this.ctx.stroke();
@@ -72,33 +72,57 @@ class Chart implements IChart {
 	public listOfLowestPrice: (string | number)[] = givenData.map(
 		prices => prices[3],
 	);
+
+	// Change this name to lowestPrice
 	public currentLowestPoint: number = Math.trunc(
 		Math.min(...(this.listOfLowestPrice as number[])),
 	);
-	public currentPoint: number =
+
+	//Current min/ lowest point
+	public currentStartingLowPoint: number =
 		this.currentLowestPoint % 5 === 0
 			? this.currentLowestPoint
 			: this.currentLowestPoint - (this.currentLowestPoint % 5); //This needs to be checked as well
 
+	/// For creating range between highest and lowest price.
+	public listOfHighestPrice: (string | number)[] = givenData.map(
+		prices => prices[2],
+	);
+
+	public currentHighestPrice = Math.trunc(
+		Math.max(...(this.listOfHighestPrice as number[])),
+	);
+
+	public currentEndingHighestPrice =
+		this.currentHighestPrice % 5 === 0
+			? this.currentHighestPrice
+			: this.currentHighestPrice + (5 - (this.currentHighestPrice % 5));
+
 	public drawPriceLine() {
+		console.log(this.currentEndingHighestPrice - this.currentStartingLowPoint);
+		console.log(this.currentEndingHighestPrice);
+		console.log(this.currentStartingLowPoint);
+		console.log('Height', this.canvasHeight);
 		const xBaseLine = this.ctx.moveTo(this.canvasWidth - countBlocks(5), 0);
 		this.ctx.lineTo(this.canvasWidth - countBlocks(5), this.canvasHeight);
 		let startingPointForY = this.canvasHeight - countBlocks(5);
+		console.log('This is start ', startingPointForY);
 		let startingPointForX = this.canvasWidth - countBlocks(5);
-		const listOfHighestPrice: (string | number)[] = givenData.map(
-			prices => prices[2],
-		);
 
-		let Yline: number = this.currentPoint; //Change this as well
+		let Yline: number = this.currentStartingLowPoint; //Change this as well
+		let priceIncrement: number = 18 * 5; // prices per block times number of blocks.
 		while (startingPointForY >= 0) {
 			this.ctx.moveTo(startingPointForX, startingPointForY);
 			this.ctx.lineTo(startingPointForX + 20, startingPointForY);
 			this.ctx.fillText(`${Yline}`, startingPointForX + 5, startingPointForY);
 			startingPointForY -= countBlocks(5);
-			Yline += 10;
+
+			Yline += priceIncrement; // prices shown on the side
 		}
 		this.ctx.stroke();
 	}
 }
+
+// Button for show hide grid
 
 export default Chart;
