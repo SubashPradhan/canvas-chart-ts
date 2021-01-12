@@ -1,4 +1,3 @@
-import Chart from './modules/Chart';
 import CandleStick from './modules/Candlestick';
 
 const container: HTMLDivElement = document.querySelector('.container');
