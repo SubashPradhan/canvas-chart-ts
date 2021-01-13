@@ -23,14 +23,16 @@ class CandleStick extends Chart {
 					countBlocks((highestPrice as number) - lowestPricePoint) /
 						this.priceIncrementOnBlocks, // Divide by number of prices so each block holds this.priceIncrementOnBlocks prices so we can calculate the distance in blocks
 			);
+			this.ctx.stroke();
+			this.ctx.strokeStyle = 'black';
 			this.ctx.lineTo(
 				startingPointX,
 				startingPointY -
 					countBlocks((lowestPrice as number) - lowestPricePoint) /
 						this.priceIncrementOnBlocks, //per this.priceIncrementOnBlocks
 			);
-			this.ctx.strokeStyle = 'black';
-			this.ctx.stroke();
+			if (closingPrice === openingPrice)
+				console.log('this is the condition we are looking for');
 			this.ctx.fillStyle = closingPrice < openingPrice ? 'green' : 'red';
 			this.ctx.fillRect(
 				startingPointX - 10,

@@ -67,8 +67,7 @@ class Chart implements IChart {
 		// this.ctx.strokeStyle = 'red';
 		// this.ctx.stroke();
 	}
-
-	/// REFACTOR THIS CODE LATER
+	// REFACTOR THIS CODE LATER
 	public listOfLowestPrice: (string | number)[] = givenData.map(
 		prices => prices[3],
 	);
@@ -84,7 +83,7 @@ class Chart implements IChart {
 			? this.currentLowestPoint
 			: this.currentLowestPoint - (this.currentLowestPoint % 5); //This needs to be checked as well
 
-	/// For creating range between highest and lowest price.
+	// For creating range between highest and lowest price.
 	public listOfHighestPrice: (string | number)[] = givenData.map(
 		prices => prices[2],
 	);
@@ -96,7 +95,9 @@ class Chart implements IChart {
 	public currentEndingHighestPrice =
 		this.currentHighestPrice % 5 === 0
 			? this.currentHighestPrice
-			: this.currentHighestPrice + (5 - (this.currentHighestPrice % 5));
+			: this.currentHighestPrice +
+			  countBlocks(5) + // In this scenario I want atleast a top to have countblocks of 5 gap
+			  (5 - (this.currentHighestPrice % 5));
 
 	public priceIncrementOnBlocks: number = Math.floor(
 		countBlocks(
@@ -105,18 +106,12 @@ class Chart implements IChart {
 		),
 	); // prices per block times number of blocks.
 	public drawPriceLine() {
-		console.log(this.currentEndingHighestPrice - this.currentStartingLowPoint);
-		console.log(this.currentEndingHighestPrice);
-		console.log(this.currentStartingLowPoint);
-		console.log('Height', this.canvasHeight);
 		const xBaseLine = this.ctx.moveTo(this.canvasWidth - countBlocks(5), 0);
 		this.ctx.lineTo(this.canvasWidth - countBlocks(5), this.canvasHeight);
 		let startingPointForY = this.canvasHeight - countBlocks(5);
-		console.log('This is start ', startingPointForY);
 		let startingPointForX = this.canvasWidth - countBlocks(5);
-		console.log('I need to increase per blocks', this.priceIncrementOnBlocks);
 
-		let Yline: number = this.currentStartingLowPoint; //Change this as well
+		let Yline: number = this.currentStartingLowPoint; // Change this as well
 		let priceIncrement: number = this.priceIncrementOnBlocks * 5; // per block holds the price of price increment so per 5 blocks which is our increment for line Y
 		while (startingPointForY >= 0) {
 			this.ctx.moveTo(startingPointForX, startingPointForY);
