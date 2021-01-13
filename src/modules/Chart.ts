@@ -98,6 +98,12 @@ class Chart implements IChart {
 			? this.currentHighestPrice
 			: this.currentHighestPrice + (5 - (this.currentHighestPrice % 5));
 
+	public priceIncrementOnBlocks: number = Math.floor(
+		countBlocks(
+			(this.currentEndingHighestPrice - this.currentStartingLowPoint) /
+				(this.canvasHeight - countBlocks(5)),
+		),
+	); // prices per block times number of blocks.
 	public drawPriceLine() {
 		console.log(this.currentEndingHighestPrice - this.currentStartingLowPoint);
 		console.log(this.currentEndingHighestPrice);
@@ -108,9 +114,10 @@ class Chart implements IChart {
 		let startingPointForY = this.canvasHeight - countBlocks(5);
 		console.log('This is start ', startingPointForY);
 		let startingPointForX = this.canvasWidth - countBlocks(5);
+		console.log('I need to increase per blocks', this.priceIncrementOnBlocks);
 
 		let Yline: number = this.currentStartingLowPoint; //Change this as well
-		let priceIncrement: number = 18 * 5; // prices per block times number of blocks.
+		let priceIncrement: number = this.priceIncrementOnBlocks * 5; // per block holds the price of price increment so per 5 blocks which is our increment for line Y
 		while (startingPointForY >= 0) {
 			this.ctx.moveTo(startingPointForX, startingPointForY);
 			this.ctx.lineTo(startingPointForX + 20, startingPointForY);

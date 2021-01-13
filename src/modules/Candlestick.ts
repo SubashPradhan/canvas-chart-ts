@@ -20,12 +20,14 @@ class CandleStick extends Chart {
 			this.ctx.moveTo(
 				startingPointX,
 				startingPointY -
-					countBlocks((highestPrice as number) - lowestPricePoint) / 18, // Divide by two so each bock holds 18 prices so we can calculate the distance in blocks
+					countBlocks((highestPrice as number) - lowestPricePoint) /
+						this.priceIncrementOnBlocks, // Divide by number of prices so each block holds this.priceIncrementOnBlocks prices so we can calculate the distance in blocks
 			);
 			this.ctx.lineTo(
 				startingPointX,
 				startingPointY -
-					countBlocks((lowestPrice as number) - lowestPricePoint) / 18, //per 18
+					countBlocks((lowestPrice as number) - lowestPricePoint) /
+						this.priceIncrementOnBlocks, //per this.priceIncrementOnBlocks
 			);
 			this.ctx.strokeStyle = 'black';
 			this.ctx.stroke();
@@ -33,11 +35,13 @@ class CandleStick extends Chart {
 			this.ctx.fillRect(
 				startingPointX - 10,
 				startingPointY -
-					countBlocks((openingPrice as number) - lowestPricePoint) / 18, // per 18
+					countBlocks((openingPrice as number) - lowestPricePoint) /
+						this.priceIncrementOnBlocks, // per this.priceIncrementOnBlocks
 				20,
-				countBlocks((openingPrice as number) - Number(closingPrice)) / 18, // per 18
+				countBlocks((openingPrice as number) - Number(closingPrice)) /
+					this.priceIncrementOnBlocks, // per 18
 			);
-			startingPointX -= countBlocks(2.5);
+			startingPointX -= countBlocks(2.5); //per candlestick size
 		});
 	}
 }
