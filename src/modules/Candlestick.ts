@@ -9,7 +9,7 @@ class CandleStick extends Chart {
 	}
 
 	public drawCandleStick() {
-		let lowestPricePoint: number = this.currentStartingLowPoint;
+		let lowestPricePoint: number = this.currentStartingLowPrice;
 		let startingPointX: number = this.canvasWidth - countBlocks(10);
 		let startingPointY: number = this.canvasHeight - countBlocks(5); // This is 5 blocks above the starting point of y
 		givenData.map(prices => {
