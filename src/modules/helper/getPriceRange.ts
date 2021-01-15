@@ -1,9 +1,9 @@
 import { countBlocks } from './countBlocks';
 
-// Create list of low prices.
-// Get the lowest price from the list.
-// Return price that is multiple of 5
-// Use count blocks to give margin on top(ADD BLOCKS) and bottom(SUBTRACT BLOCKS) prices
+// Create list of low prices / high prices.
+// Get the lowest / highest price from the list.
+// Return price that is multiple of 5.
+// Use count blocks to give margin on top(ADD BLOCKS) and bottom(SUBTRACT BLOCKS) prices.
 
 const defaultMargin: number = countBlocks(10);
 export const getLowestStartPrice = (data: (string | number)[][]): number => {

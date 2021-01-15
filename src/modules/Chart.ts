@@ -6,24 +6,32 @@ import {
 } from './helper/getPriceRange';
 
 interface IChart {
+	// container: HTMLDivElement;
+	currentStartingLowPrice: number;
+	currentEndingHighPrice: number;
+	canvasHeight: number;
+	canvasWidth: number;
+	ctx: CanvasRenderingContext2D;
 	drawGrids: () => void;
 	drawTimeLine: () => void;
+	drawPriceLine: () => void;
 }
 
 class Chart implements IChart {
 	public container: HTMLDivElement;
-	private xGrid: number = 10;
-	private yGrid: number = 10;
-	private tabcellSize: number = 10;
 	public currentStartingLowPrice: number = getLowestStartPrice(givenData);
 	public currentEndingHighPrice: number = getHighestEndingPrice(givenData);
 	private screenMargin: number = 100;
+	private canvasMargin: number = countBlocks(5);
 	private canvas: HTMLCanvasElement = document.createElement('canvas');
+	public ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
 	public canvasHeight: number = (this.canvas.height =
 		document.documentElement.clientHeight - this.screenMargin);
 	public canvasWidth: number = (this.canvas.width =
 		document.documentElement.clientWidth - this.screenMargin);
-	public ctx: CanvasRenderingContext2D = this.canvas.getContext('2d');
+	private xGrid: number = 10;
+	private yGrid: number = 10;
+	private tabcellSize: number = 10;
 
 	public constructor(container: HTMLDivElement) {
 		this.container = container;
@@ -40,7 +48,7 @@ class Chart implements IChart {
 			this.yGrid += this.tabcellSize;
 		}
 
-		// Draw x grids
+		// Draw X grids
 		while (this.xGrid < this.canvasHeight) {
 			let yPoint: number = this.canvasHeight - this.xGrid;
 			this.ctx.moveTo(0, yPoint);
@@ -52,40 +60,35 @@ class Chart implements IChart {
 	}
 
 	public drawTimeLine() {
-		let yBaseLine: number = this.canvasHeight - countBlocks(5);
+		let yBaseLine: number = this.canvasHeight - this.canvasMargin;
 		this.ctx.beginPath();
 		this.ctx.moveTo(0, yBaseLine);
 		this.ctx.lineTo(this.canvasWidth, yBaseLine);
 	}
 
+	// Get price per blocks in blocks count
 	public priceIncrementOnBlocks: number = Math.floor(
 		countBlocks(
 			(this.currentEndingHighPrice - this.currentStartingLowPrice) /
-				(this.canvasHeight - countBlocks(5)),
+				(this.canvasHeight - this.canvasMargin),
 		),
-	); // prices per block times number of blocks.
+	);
 
 	public drawPriceLine() {
-		console.log(this.currentStartingLowPrice);
-		const xBaseLine = this.ctx.moveTo(this.canvasWidth - countBlocks(5), 0);
-		this.ctx.lineTo(this.canvasWidth - countBlocks(5), this.canvasHeight);
-		let startingPointForY = this.canvasHeight - countBlocks(5);
-		let startingPointForX = this.canvasWidth - countBlocks(5);
-
-		let Yline: number = this.currentStartingLowPrice; // Change this as well
+		this.ctx.moveTo(this.canvasWidth - this.canvasMargin, 0);
+		this.ctx.lineTo(this.canvasWidth - this.canvasMargin, this.canvasHeight);
+		let startingPointForY: number = this.canvasHeight - this.canvasMargin;
+		let startingPointForX: number = this.canvasWidth - this.canvasMargin;
+		let Yline: number = this.currentStartingLowPrice;
 		let priceIncrement: number = this.priceIncrementOnBlocks * 5; // per block holds the price of price increment so per 5 blocks which is our increment for line Y
 		while (startingPointForY >= 0) {
 			this.ctx.moveTo(startingPointForX, startingPointForY);
 			this.ctx.lineTo(startingPointForX + 20, startingPointForY);
 			this.ctx.fillText(`${Yline}`, startingPointForX + 5, startingPointForY);
-			startingPointForY -= countBlocks(5);
-
-			Yline += priceIncrement; // prices shown on the side
+			startingPointForY -= this.canvasMargin;
+			Yline += priceIncrement * 5; // prices shown on the side
 		}
-		this.ctx.stroke();
 	}
 }
-
-// Button for show hide grid
 
 export default Chart;
