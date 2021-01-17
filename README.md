@@ -27,3 +27,4 @@
 - Create Timeline for x-axis with given timestamps.
 - Add zoom/resize events to draw canvas.
 - Use websocket to draw candlestick on real timeframe.
+- Code cleanups and good naming conventions.
