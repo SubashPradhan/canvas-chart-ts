@@ -1,8 +1,5 @@
 # 📊 Canvas-chart 💹
 
-### Current Status
-![](chart.png)
-
 ## Table Of Contents
 - **[Why](#why)**
 - **[How](#how)**
@@ -32,3 +29,6 @@
 - Add zoom/resize events to draw canvas.
 - Use websocket to draw candlestick on real timeframe.
 - Code cleanups and good naming conventions.
+
+### Current Status
+![](chart.png)
