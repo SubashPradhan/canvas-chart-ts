@@ -1,4 +1,8 @@
 # 📊 Canvas-chart 💹
+
+### Current Status
+![](chart.png)
+
 ## Table Of Contents
 - **[Why](#why)**
 - **[How](#how)**
