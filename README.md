@@ -26,4 +26,4 @@
 #### Next Steps
 - Create Timeline for x-axis with given timestamps.
 - Add zoom/resize events to draw canvas.
-- Using websocket to draw candlestick on real timeframe.
+- Use websocket to draw candlestick on real timeframe.
