@@ -1,23 +1,23 @@
 # 📊 Canvas-chart 💹
 ## Table Of Contents
-- [Why](#why)
+- **[Why](#why)**
 - **[How](#how)**
 - **[Technologies](#technologies)**
 - **[What's next](#next-steps)**
 
-#### Why ⁉️
+#### Why
 - The sole purpose of this repo is to learn canvas 2D rendering.
 - Create your own chart without external libraries.
 - Implement OOP model with TS.
 
-#### How ⁇
+#### How
 - Some sample data from Binance API is used.
 - Each Candlestick represents single timeframe prices/data per minute which can be altered.
 - Each data consists of timestamp, open price, high price, low price & closing price.
 - The main chart is drawn by finding the highest and lowest price ranges from the data.
 - The candlesticks uses the prices open price, close price , highest price and low price to be drawn.
 
-#### Technologies ⚙️
+#### Technologies
 - Vanilla js
 - Webpack
 - Typescript
