@@ -5,6 +5,7 @@
 - **[How](#how)**
 - **[Technologies](#technologies)**
 - **[What's next](#next-steps)**
+- **[Current Status](#current-status)**
 
 #### Why
 - The sole purpose of this repo is to learn canvas 2D rendering.
@@ -30,5 +31,5 @@
 - Use websocket to draw candlestick on real timeframe.
 - Code cleanups and good naming conventions.
 
-### Current Status
+#### Current Status
 ![](chart.png)
