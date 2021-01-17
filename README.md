@@ -1,6 +1,6 @@
 # 📊 Canvas-chart 💹
 ## Table Of Contents
-- **[Why](#why)**
+- [Why](#why)
 - **[How](#how)**
 - **[Technologies](#technologies)**
 - **[What's next](#next-steps)**
