@@ -31,5 +31,6 @@
 - Use websocket to draw candlestick on real timeframe.
 - Code cleanups and good naming conventions.
 
-#### Current Status
+#### Current Status:
+Work In Progress..
 ![](chart.png)
